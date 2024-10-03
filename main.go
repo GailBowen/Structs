@@ -14,10 +14,26 @@ type contactInfo struct {
 }
 
 func main() {
-	i := "gail"
-	fmt.Printf("1. main  -- i  %T: &i=%p i=%v\n", i, &i, i)
-	namePointer := &i
-	byVal(namePointer)
+
+	// var colours map[string]string
+
+	// colours := map[string]string{
+	// 	"purple": "#800080",
+	// 	"green":  "#00FF00",
+	// }
+
+	//fmt.Println(colours)
+
+	colours := make(map[string]string)
+	colours["purple"] = "#800080"
+	colours["green"] = "#00FF00"
+
+	fmt.Printf("%+v\n", colours)
+
+	delete(colours, "purple")
+
+	fmt.Printf("%+v\n", colours)
+
 }
 
 func byVal(q *string) {

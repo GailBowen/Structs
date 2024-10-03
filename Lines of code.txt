@@ -128,3 +128,11 @@ func main() {
 func byVal(q *string) {
 	fmt.Printf("2. byVal -- q %T: &q=%p q=&i=%p  *q=i=%v\n", q, &q, q, *q)
 }
+colours := map[string]string{
+		"purple": "#800080",
+		"green":  "#00FF00",
+}
+var colours map[string]string
+colours := make(map[string]string)
+colours["purple"] = "#800080"
+delete(colours, "purple")
