@@ -86,3 +86,12 @@ if i%2 == 0 {
 } else {
  fmt.Printf("%v is odd\n", i)
 }
+type person struct {
+	firstname string
+	lastname  string
+}
+bob := person{firstname: "Gail", lastname: "Foad"}
+fmt.Println(bob.firstname, bob.lastname)
+var Romanov person
+Romanov.firstname = "Nicolas"
+fmt.Printf("%+v", bob) //Print struct's field names
