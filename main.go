@@ -14,23 +14,18 @@ type contactInfo struct {
 }
 
 func main() {
-	fmt.Println("hello structs")
+	i := "gail"
+	fmt.Printf("1. main  -- i  %T: &i=%p i=%v\n", i, &i, i)
+	namePointer := &i
+	byVal(namePointer)
+}
 
-	bob := person{
-		firstname: "Gail",
-		lastname:  "Bowen",
-		contactInfo: contactInfo{
-			email:    "bob@gmail.com",
-			houseNum: 76,
-		},
-	}
+func byVal(q *string) {
+	fmt.Printf("2. byVal -- q %T: &q=%p q=&i=%p  *q=i=%v\n", q, &q, q, *q)
+}
 
-	bob.print()
-
-	bob.updateLastName("Foad")
-
-	bob.print()
-
+func updateSlice(s []string) {
+	s[0] = "Bonjour"
 }
 
 func (p person) print() {

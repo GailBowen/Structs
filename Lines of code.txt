@@ -98,7 +98,7 @@ type contactInfo struct {
 bob := person{
 		firstname: "Gail",
 		lastname:  "Foad",
-		contactInfo: contactInfo{{
+		contactInfo: contactInfo {
 			email:    "bob@gmail.com",
 			houseNum: 76,
 		},
@@ -115,3 +115,16 @@ func (p *person) updateLastName(newLastName string) { //*person - type descripti
 }
 fmt.Printf("memory address %p\n", &Romanov)
 fmt.Printf("Type: %T\n", Romanov)
+func updateSlice(s []string) { //Slices are length (current length), capacity and ptr to head. So don't need pointers to work in functions
+	s[0] = "Bonjour"
+}//reference types: slices, maps, channels, pointers, functions
+fmt.Println(*&name) //value types: int, float, string, bool, structs.
+func main() {
+	i := "gail"
+	fmt.Printf("1. main  -- i  %T: &i=%p i=%v\n", i, &i, i)
+	namePointer := &i
+	byVal(namePointer)
+}
+func byVal(q *string) {
+	fmt.Printf("2. byVal -- q %T: &q=%p q=&i=%p  *q=i=%v\n", q, &q, q, *q)
+}
