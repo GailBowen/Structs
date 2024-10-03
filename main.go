@@ -27,10 +27,6 @@ func main() {
 
 	bob.print()
 
-	// var Romanov person
-	// Romanov.firstname = "Nicolas"
-	// Romanov.print()
-
 	bob.updateLastName("Foad")
 
 	bob.print()
@@ -42,5 +38,5 @@ func (p person) print() {
 }
 
 func (p *person) updateLastName(newLastName string) {
-	p.lastname = newLastName
+	(*p).lastname = newLastName
 }

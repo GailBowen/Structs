@@ -110,6 +110,8 @@ Romanov.firstname = "Nicolas"
 func (p person) print() {
 	fmt.Printf("%+v\n", p)
 }
-func (p *person) updateLastName(newLastName string) {
-	p.lastname = newLastName
+func (p *person) updateLastName(newLastName string) { //*person - type description -  a pointer of type person
+	(*p).lastname = newLastName                      //*p - * is an operator - we want the value that the pointer is referencing
 }
+fmt.Printf("memory address %p\n", &Romanov)
+fmt.Printf("Type: %T\n", Romanov)
