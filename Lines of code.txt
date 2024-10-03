@@ -89,9 +89,21 @@ if i%2 == 0 {
 type person struct {
 	firstname string
 	lastname  string
+	contact   contactInfo
 }
-bob := person{firstname: "Gail", lastname: "Foad"}
+type contactInfo struct {
+	email    string
+	houseNum int
+}
+bob := person{
+		firstname: "Gail",
+		lastname:  "Foad",
+		contact: contactInfo{
+			email:    "bob@gmail.com",
+			houseNum: 76,
+		},
+}
+fmt.Printf("%+v", bob) //Print struct's field names
 fmt.Println(bob.firstname, bob.lastname)
 var Romanov person
 Romanov.firstname = "Nicolas"
-fmt.Printf("%+v", bob) //Print struct's field names
