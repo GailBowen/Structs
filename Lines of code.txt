@@ -1,0 +1,88 @@
+Go //Find out if it's installed
+Go version
+package main //must be 'main' if going to be an executable. If you change it to something else then try to build, you get no error + NOTHING :)
+import "fmt" // ********golang.org/pkg**********
+func main() { //an exe must have a function called main
+	fmt.Println("hello wolf!")
+	integer := 23
+	fmt.Printf("%v", integer)
+}
+Go run wolf.go
+Go build wolf.go //main.exe
+./wolf.exe
+var card string = "Ace of Spades" //statically typed!
+card := "Ace of Spades" // := is only for a new variable
+var deckSize int //You can do this outside of func main() !
+func newCard() string {
+	return "Five of Diamonds"
+}
+cards := []string{"Ace of Diamonds", newCard()} //Splice not an array
+cards = append(cards, "Jack of Diamonds")
+for i, card := range cards {
+	fmt.Println(i, card)
+}
+type deck []string //NOTE: the receiver has (d deck) BEFORE the function name!
+func (d deck) print() { //receiver function. Any variable of type 'deck' gets access to the print method
+	for i, card := range d {
+		fmt.Println(i, card)
+	}
+}
+cards := deck{"Ace of Diamonds", newCard()}
+cards.print();
+func newDeck() deck {
+	cards := deck{}
+	cardSuits := []string{"Spades", "Hearts", "Diamonds", "Clubs"}
+	cardValues := []string{"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"}
+	for _, suit := range cardSuits {
+		for _, value := range cardValues {
+			cards = append(cards, value+" of "+suit)
+		}
+	}
+	return cards
+}
+separateDeck := cards[0:13] // [startIndexIncluding: upToNotIncluding]
+separateDeck := cards[:13]  // Number left out - from beginning
+separateDeck := cards[50:]  // Number missed out - to end
+func deal(d deck, handsize int) (deck, deck) { //Not using a receiver as cards.deal() might make someone think that cards was going to be modified.
+	return d[:handsize], d[handsize:]
+}
+myHand, myLeftOver := deal(cards, handsize) //returns two values!!
+type color string
+func (c color) describe(description string) string {
+	return string(c) + " " + description
+}
+c := color("purple")
+fmt.Println(c.describe("is amazing"))
+fmt.Println([]byte(something))//Convert to byte array then print. C#: byte[] infoArray = Encoding.ASCII.GetBytes(info); Loop through each byte to display.
+func (d deck) toString() string {
+	deskAsString := []string(d) //Convert deck to string array
+	return strings.Join(deskAsString, ",")} //Convert string array to string
+cardsAsByteSlice := []byte(cardsAsString)
+err := os.WriteFile("Chickens", cardsAsByteSlice, 0644)
+if err != nil {
+	log.Fatal(err)}
+bytesFromFile, readError := os.ReadFile("Chickens")
+stringFromBytes := string(bytesFromFile) //Convert byte slice to string
+stringArray := strings.Split(stringFromBytes, ",") //Convert string to string array
+myDeck := deck(stringArray) //Convert string array to deck
+os.Exit(999)
+func (d deck) shuffle() {
+	source := rand.NewSource(time.Now().UnixNano())
+	for i := range d {
+		r := rand.New(source)
+		newPosition := r.Intn(len(d) - 1)
+		d[i], d[newPosition] = d[newPosition], d[i]
+	}
+}
+go mod init cards
+func TestNewDeck(t *testing.T) { //testing file must end _test.go
+	d := newDeck()
+	if len(d) != 52 {
+		t.Errorf("Error: expected 52 cards but got %v", len(d))
+	}
+}
+if i%2 == 0 {
+ fmt.Printf("%v is even\n", i)
+} else {
+ fmt.Printf("%v is odd\n", i)
+}
