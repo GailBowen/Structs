@@ -136,3 +136,12 @@ var colours map[string]string
 colours := make(map[string]string)
 colours["purple"] = "#800080"
 delete(colours, "purple")
+func printMap(c map[string]string) {
+	for colour, hex := range c {
+		fmt.Println(colour, hex)
+	}
+	c["silver"] = "#C0C0C0"
+}
+for i := 0; i < len(sl); i++ {
+		fmt.Println(sl[i])
+}
