@@ -2,38 +2,29 @@ package main
 
 import (
 	"fmt"
+	"io"
+	"log"
+	"net/http"
 )
 
-type bot interface { //Can't create a variable of type bot //interface type
-	getGreeting() string
-}
-
-func doStuff(b bot) {
-	fmt.Println(b.getGreeting())
-}
-
-type germanBot struct {
-	name     string
-	language string
-}
-
-func (gb germanBot) getGreeting() string { //Implementing this method is enough to make it type bot. //concrete type // Interfaces are implicit
-	return "Ich heiße " + gb.name
-}
-
-type frenchBot struct {
-}
-
-func (fb frenchBot) getGreeting() string {
-	return "Je m'appelle François"
-}
-
 func main() {
-	engBot := englishBot{name: "Harry", language: "English"}
-	gerBot := germanBot{name: "Kurt", language: "German"}
-	frBot := frenchBot{}
 
-	doStuff(frBot) //If you call a bot function, you have to implement all bot methods
-	doStuff(engBot)
-	doStuff(gerBot)
+	fmt.Println("hello wolf")
+
+	resp, err := http.Get("https://jsonplaceholder.typicode.com/posts/1")
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	log.Printf(string(body))
+
 }
