@@ -190,3 +190,8 @@ if error != nil {
 	os.Exit(1)
 }
 fmt.Println(string(body))
+resp, err := http.Get("https://jsonplaceholder.typicode.com/posts/2")
+bs := make([]byte, 900)//see Reader.docx
+resp.Body.Read(bs)
+fmt.Println(string(bs))
+io.Copy(os.Stdout, resp.Body)
