@@ -1,11 +1,24 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"os"
 )
+
+type logWriter struct {
+	io.Writer
+}
+
+func (l logWriter) Write(p []byte) (n int, err error) {
+
+	fmt.Printf("hello duck!\n\n")
+	fmt.Printf(string(p) + "\n\n")
+
+	return len(p), nil
+}
 
 func main() {
 
@@ -16,6 +29,10 @@ func main() {
 		os.Exit(1)
 	}
 
-	io.Copy(os.Stdout, resp.Body)
+	bobWriter := logWriter{}
+
+	mylen, err := io.Copy(bobWriter, resp.Body)
+
+	fmt.Println(mylen)
 
 }

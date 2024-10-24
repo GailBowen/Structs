@@ -195,3 +195,9 @@ bs := make([]byte, 900)//see Reader.docx
 resp.Body.Read(bs)
 fmt.Println(string(bs))
 io.Copy(os.Stdout, resp.Body)
+func (l logWriter) Write(p []byte) (n int, err error) {
+	fmt.Printf("hello duck!\n\n")
+	fmt.Printf(string(p))
+	return 0, nil
+}
+io.Copy(bobWriter, resp.Body)
