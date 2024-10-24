@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-type bot interface {
+type bot interface { //Can't create a variable of type bot //interface type
 	getGreeting() string
 }
 
@@ -17,7 +17,7 @@ type germanBot struct {
 	language string
 }
 
-func (gb germanBot) getGreeting() string {
+func (gb germanBot) getGreeting() string { //Implementing this method is enough to make it type bot. //concrete type // Interfaces are implicit
 	return "Ich heiße " + gb.name
 }
 

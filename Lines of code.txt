@@ -145,13 +145,13 @@ func printMap(c map[string]string) {
 for i := 0; i < len(sl); i++ {
 		fmt.Println(sl[i])
 }
-type bot interface { //If you have getGreeting, you are now an honourary member of type 'bot'.
+type bot interface { //If you have getGreeting, you are now an honourary member of type 'bot'. //Interfaces are implicit. No linking needed.
 	getGreeting() string
 }
-func doStuff(b bot) { //If you're an honourary member of type bot, you can also call 'doStuff'
+func doStuff(b bot) { //If you're an honourary member of type bot, you can also call 'doStuff' //Concrete type
 	fmt.Println(b.getGreeting())
 }
-type germanBot struct {
+type germanBot struct { //concrete type
 	name     string
 	language string
 }
@@ -161,7 +161,6 @@ func (gb germanBot) getGreeting() string {
 func main() {
 	engBot := englishBot{name: "Harry", language: "English"}
 	gerBot := germanBot{name: "Kurt", language: "German"}
-
 	doStuff(engBot)
 	doStuff(gerBot)
 }
