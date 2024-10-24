@@ -1,21 +1,22 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
 
-	fmt.Println("hello wolf")
-
-	resp, err := http.Get("https://jsonplaceholder.typicode.com/posts/1")
+	resp, err := http.Get("https://jsonplaceholder.typicode.com/posts/2")
 
 	if err != nil {
 		log.Fatalln(err)
+		os.Exit(1)
 	}
+
+	//fmt.Println(resp)
 
 	defer resp.Body.Close()
 

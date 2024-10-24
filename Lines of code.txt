@@ -171,9 +171,10 @@ import (
 	"net/http"
 )
 func main() {
-	resp, err := http.Get("https://jsonplaceholder.typicode.com/posts/1")
+	resp, err := http.Get("http://kitten.net")
 	if err != nil {
 		log.Fatalln(err)
+		os.Exit(1)
 	}
 	defer resp.Body.Close() //Schedules the close method to be called when the function returns.
 	body, err := io.ReadAll(resp.Body)
@@ -182,3 +183,10 @@ func main() {
 	}
 	log.Printf(string(body))
 }
+bob := strings.NewReader("Hello Bob") //bob is now a struct 'reader'
+body, error := io.ReadAll(bob)
+if error != nil {
+	log.Fatalln(error)
+	os.Exit(1)
+}
+fmt.Println(string(body))
