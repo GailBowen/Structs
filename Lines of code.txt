@@ -201,3 +201,5 @@ func (l logWriter) Write(p []byte) (n int, err error) {
 	return 0, nil
 }
 io.Copy(bobWriter, resp.Body)
+myFile, err := os.Open(os.Args[1])//file to open provided as an argument to the program - go run main.go chickens
+io.Copy(os.Stdout, myFile)

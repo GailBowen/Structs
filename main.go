@@ -1,40 +1,36 @@
 package main
 
-import "fmt"
-
-type square struct {
-	sideLength float64
-}
-
-type triangle struct {
-	height float64
-	base   float64
-}
-
-func (s square) getArea() float64 {
-	return s.sideLength * s.sideLength
-}
-
-func (t triangle) getArea() float64 {
-	return 0.5 * t.base * t.height
-}
-
-type shape interface {
-	getArea() float64
-}
-
-func printArea(s shape) {
-	fmt.Println(s.getArea())
-}
+import (
+	"fmt"
+	"io"
+	"os"
+)
 
 func main() {
 
-	sq := square{sideLength: 10}
+	if len(os.Args) <= 1 {
+		fmt.Println("Please pass in a file as an argument")
+		os.Exit(1)
+	}
 
-	printArea(sq)
+	fmt.Println(os.Args)
 
-	tri := triangle{height: 2, base: 3}
+	myFile, err := os.Open(os.Args[1])
 
-	printArea(tri)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	io.Copy(os.Stdout, myFile)
+
+	//bytesFromFile, readError := os.ReadFile(os.Args[1])
+
+	// if readError != nil {
+	// 	fmt.Println("Could not read from file")
+	// 	os.Exit(1)
+	// }
+	// stringFromBytes := string(bytesFromFile) //Convert byte slice to string
+	// fmt.Println(stringFromBytes)
 
 }
