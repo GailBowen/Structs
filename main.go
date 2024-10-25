@@ -1,34 +1,42 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 )
 
-func checkLink(l string) (result string) {
+func checkLink(l string, c chan string) {
 	resp, err := http.Get(l)
 	if err != nil {
-		result := l + " has a problem\n"
-		return result
+		fmt.Println(l + " has a problem")
+		c <- "Might be down, I think\n"
+
 	} else {
 
-		result := l + " " + resp.Status + "\n"
-		defer resp.Body.Close()
+		fmt.Println(l + " " + resp.Status)
+		c <- "Yes, it's up\n"
 
-		return result
 	}
 
 }
 
 func main() {
 	links := []string{
-		"http://google.com",
+		"http://amazon.com",
 		"http://arsebook.com",
+		"http://google.com",
 		"http://stackoverflow.com",
 		"http://golang.org",
-		"http://amazon.com"}
+	}
+
+	c := make(chan string)
 
 	for _, link := range links {
-		println(checkLink(link))
+		go checkLink(link, c)
+	}
+
+	for i := 0; i < len(links); i++ {
+		fmt.Println(<-c) //Receiving messages from a channel is a blocking line of code!
 	}
 
 }
