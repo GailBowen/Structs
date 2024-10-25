@@ -1,38 +1,40 @@
 package main
 
-import (
-	"fmt"
-	"io"
-	"log"
-	"net/http"
-	"os"
-)
+import "fmt"
 
-type logWriter struct {
-	io.Writer
+type square struct {
+	sideLength float64
 }
 
-func (l logWriter) Write(p []byte) (n int, err error) {
+type triangle struct {
+	height float64
+	base   float64
+}
 
-	fmt.Printf("hello duck!\n\n")
-	fmt.Printf(string(p) + "\n\n")
+func (s square) getArea() float64 {
+	return s.sideLength * s.sideLength
+}
 
-	return len(p), nil
+func (t triangle) getArea() float64 {
+	return 0.5 * t.base * t.height
+}
+
+type shape interface {
+	getArea() float64
+}
+
+func printArea(s shape) {
+	fmt.Println(s.getArea())
 }
 
 func main() {
 
-	resp, err := http.Get("https://jsonplaceholder.typicode.com/posts/3")
+	sq := square{sideLength: 10}
 
-	if err != nil {
-		log.Fatalln(err)
-		os.Exit(1)
-	}
+	printArea(sq)
 
-	bobWriter := logWriter{}
+	tri := triangle{height: 2, base: 3}
 
-	mylen, err := io.Copy(bobWriter, resp.Body)
-
-	fmt.Println(mylen)
+	printArea(tri)
 
 }
