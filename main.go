@@ -1,36 +1,34 @@
 package main
 
 import (
-	"fmt"
-	"io"
-	"os"
+	"net/http"
 )
 
-func main() {
-
-	if len(os.Args) <= 1 {
-		fmt.Println("Please pass in a file as an argument")
-		os.Exit(1)
-	}
-
-	fmt.Println(os.Args)
-
-	myFile, err := os.Open(os.Args[1])
-
+func checkLink(l string) (result string) {
+	resp, err := http.Get(l)
 	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		result := l + " has a problem\n"
+		return result
+	} else {
+
+		result := l + " " + resp.Status + "\n"
+		defer resp.Body.Close()
+
+		return result
 	}
 
-	io.Copy(os.Stdout, myFile)
+}
 
-	//bytesFromFile, readError := os.ReadFile(os.Args[1])
+func main() {
+	links := []string{
+		"http://google.com",
+		"http://arsebook.com",
+		"http://stackoverflow.com",
+		"http://golang.org",
+		"http://amazon.com"}
 
-	// if readError != nil {
-	// 	fmt.Println("Could not read from file")
-	// 	os.Exit(1)
-	// }
-	// stringFromBytes := string(bytesFromFile) //Convert byte slice to string
-	// fmt.Println(stringFromBytes)
+	for _, link := range links {
+		println(checkLink(link))
+	}
 
 }
