@@ -235,3 +235,10 @@ for l := range c {
 			checkLink(linky, c)
 		}(l)
 }
+greeting := "hello wolf"
+myChan := make(chan string)
+go (func(g string, c chan string) {
+	fmt.Println(g)
+	c <- "done"
+})(greeting, myChan)
+fmt.Println(<-myChan)

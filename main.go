@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"time"
 )
 
 func checkLink(l string, c chan string) {
@@ -22,25 +21,38 @@ func checkLink(l string, c chan string) {
 }
 
 func main() {
-	links := []string{
-		"http://amazon.com",
-		"http://arsebook.com",
-		"http://google.com",
-		"http://stackoverflow.com",
-		"http://golang.org",
-	}
 
-	c := make(chan string)
+	greeting := "hello wolf"
 
-	for _, link := range links {
-		go checkLink(link, c)
-	}
+	myChan := make(chan string)
 
-	for link := range c {
-		go func(linky string) { //function literal
-			time.Sleep(5 * time.Second)
-			checkLink(linky, c)
-		}(link)
-	}
+	go (func(g string, c chan string) {
+		fmt.Println(g)
+		c <- "done"
+
+	})(greeting, myChan)
+
+	fmt.Println(<-myChan)
+
+	// links := []string{
+	// 	"http://amazon.com",
+	// 	"http://arsebook.com",
+	// 	"http://google.com",
+	// 	"http://stackoverflow.com",
+	// 	"http://golang.org",
+	// }
+
+	// c := make(chan string)
+
+	// for _, link := range links {
+	// 	go checkLink(link, c)
+	// }
+
+	// for link := range c {
+	// 	go func(linky string) { //function literal
+	// 		time.Sleep(5 * time.Second)
+	// 		checkLink(linky, c)
+	// 	}(link)
+	// }
 
 }
