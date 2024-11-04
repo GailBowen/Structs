@@ -3,18 +3,19 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 )
 
 func checkLink(l string, c chan string) {
-	resp, err := http.Get(l)
+	_, err := http.Get(l)
 	if err != nil {
-		fmt.Println(l + " has a problem")
-		c <- "Might be down, I think\n"
+		fmt.Println(l, " might be down!")
+		c <- l
 
 	} else {
 
-		fmt.Println(l + " " + resp.Status)
-		c <- "Yes, it's up\n"
+		fmt.Println(l + " is fine")
+		c <- l
 
 	}
 
@@ -35,8 +36,11 @@ func main() {
 		go checkLink(link, c)
 	}
 
-	for i := 0; i < len(links); i++ {
-		fmt.Println(<-c) //Receiving messages from a channel is a blocking line of code!
+	for link := range c {
+		go func(linky string) { //function literal
+			time.Sleep(5 * time.Second)
+			checkLink(linky, c)
+		}(link)
 	}
 
 }

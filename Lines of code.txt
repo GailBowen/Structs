@@ -229,3 +229,9 @@ func checkLink(l string, c chan string) {
 		c <- "Yes, it's up\n"
 	}
 }
+for l := range c {
+		go func(linky string) { //function literal
+			time.Sleep(5 * time.Second)
+			checkLink(linky, c)
+		}(l)
+}
